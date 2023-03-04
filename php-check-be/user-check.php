@@ -3,8 +3,6 @@ header('Access-Control-Allow-Origin: *');
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-
-$request_body = json_decode(file_get_contents('php://input'), true);
   
 $valid_email = filter_var($email, FILTER_VALIDATE_EMAIL);
 if (!$valid_email) {
@@ -24,6 +22,5 @@ if (!$valid_password) {
 
 $response = array('success' => true, 'message' => 'Email and password are valid');
 echo json_encode($response);
-exit();
 
 ?>

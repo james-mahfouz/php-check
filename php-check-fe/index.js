@@ -35,7 +35,6 @@ function login_button() {
     sort_button.addEventListener('click', sort_numbers)
     palindrome_button.addEventListener('click', check_palindrome)
     prime_button.addEventListener('click', check_prime_age)
-    course_button.addEventListener('click', create_course)
     magic_button.addEventListener('click', reverse_numb_string)
     consonant_button.addEventListener('click', consonant_switch)
     ip_button.addEventListener('click', get_ip_address)
@@ -55,118 +54,62 @@ function login_button() {
         }
         console.log(numbers_string)
 
-        let url = 'http://localhost/php-check/php-check-be/sort.php?numbers=' + encodeURIComponent(numbers_string);
-        console.log(url);
+        let url = 'http://localhost/php-check/php-check-be/sort.php?numbers=' + encodeURIComponent(numbers_string)
         
         axios.get(url).then(response => {
             console.log(response.data)
             const sorted_numbers = response.data
             display_result.innerHTML = sorted_numbers
         }).catch(error => console.error(error))
-
-        
     }  
 
-    function check_palindrome(){
+    function check_palindrome(event){
         event.preventDefault()
         let palindrome_string = document.getElementById('user_palindrome_input').value
         let display = document.getElementById('palindrome-output')
 
-        display.innerHTML = palindrome_string + " is " + palindrome(palindrome_string)
-
-        function palindrome_helper(string, begin, end) {
-            //will check if the begin and and end character are equal and each time begin will
-            //increment and end will decrement until begin is bigger than end
-            console.log(string, begin, end)
-            if (string[begin] != string[end]) {
-                return false;
-            } else if (string.length == 1) {
-
-                return true;
-            } else if (begin > end) {
-                return true;
-            } else {
-                return palindrome_helper(string, begin + 1, end - 1)
-            }
-        }
-
-        function palindrome(string) {
-            return palindrome_helper(string, 0, string.length - 1)
-        }
+        let url = 'http://localhost/php-check/php-check-be/palindrome.php?string=' + encodeURIComponent(palindrome_string)
+        console.log(url)
+        axios.get(url).then(response => {
+            console.log(response.data);
+            let is_palindrome = response.data
+            display.innerHTML = palindrome_string + " is " + is_palindrome
+        })   
     }
 
     function check_prime_age(){
         let year_of_birth = document.getElementById('user_prime_input').value
-        let age = new Date().getFullYear() - parseInt(year_of_birth)
         let display = document.getElementById('prime-output')
-        age=parseInt(age)
-        console.log(age)
+        console.log(year_of_birth)
 
-        if(is_prime(age)){
-            display.innerHTML = `Nice, You are ${age} years old, which is a prime number`
-        }else{
-            display.innerHTML = `Nice, You are ${age} years old, but it isn't a prime number`
-        }
-
-        function is_prime(age_input){
-            let is_prime = true
-            for(let i = 2; i<= age/2; i++){
-                if(age_input % i==0){
-                    is_prime=false
-                    break;
-                }
+        let data = new FormData()
+        data.append('year_of_birth', year_of_birth)
+        axios.post('http://localhost/php-check/php-check-be/prime.php', data).then(function(response) {
+            console.log(response.data);
+            let is_prime = response.data.is_prime
+            let is_even = response.data.is_even
+            if(is_prime){
+                display.innerHTML = `Nice, You are ${response.data.age} years old, which is a prime number`
+            }else{
+                display.innerHTML = `Nice, You are ${response.data.age} years old, but it isn't a prime number`
             }
-            return is_prime
-        }
-    }
-
-    function create_course(){
-        event.preventDefault()
-        class Course{
-                constructor(code, instructor, name, credits){
-                this.code = code
-                this.instructor = instructor
-                this.name = name
-                this.credits = credits
+            if(is_even){
+                display.innerHTML += `<br>you have an even age`
+            }else{
+                display.innerHTML += `<br>you have an odd age`
             }
-        }
-        let c_code = document.getElementById('c_code').value
-        let c_instructor = document.getElementById('c_instructor').value
-        let c_name = document.getElementById('c_name').value
-        let c_credits = document.getElementById('c_credits').value
-        let display = document.getElementById('course_result')
-
-        let course = new Course(c_code, c_instructor, c_name, c_credits)
-        console.log(course.code, course.instructor, course.name , course.credits)
-        display.innerHTML = `This course ${course.name} with ${course.instructor} seems borring that is why you are ditching to play in the Javascript playground. I can suggest the FSW as a replacement BEST BOOTCAMP EVER`
+        })  
     }
 
     function reverse_numb_string(){
         let string_input = document.getElementById('magic_input').value
         let display = document.getElementById('magic-output')
-
-        //regular expression for digits
-        let digit_check = /\d/
-        let digits = []
-        let index = []
-        let string_array = string_input.split('')
-        //check if a character is a digit, if yes will push it to the array
-        //also pushing the indexes for time complexity
-        for (let i = 0 ;i <string_array.length; i++){
-            if(digit_check.test(string_array[i])){
-                digits.push(string_array[i])
-                index.push(i)
-            }
-        }
-        //put the last number of the array where we found the first one
-        for(let i = 0;i<index.length;i++){
-            string_array[index[i]]=digits.pop()
-        }
-
-        //retransform the array to a string
-        let string_output = string_array.join("")
-        display.innerHTML =string_output +  '<br>HAHAHHAHA numbers in the string are reversed :p , I was bored when I did this <br> if Charbel saw this I am so happy in the bootcamp'
-
+        let url = 'http://localhost/php-check/php-check-be/palindrome.php?string_input=' + encodeURIComponent(string_input)
+        axios.get(url).then(response =>{
+            console.log(response.data.string_output)
+            let string_output = response.data.string_output
+            display.innerHTML =string_output +  '<br>HAHAHHAHA numbers in the string are reversed :p , I was bored when I did this <br> if Charbel saw this I am so happy in the bootcamp'
+        })
     }
 
     function consonant_switch(){

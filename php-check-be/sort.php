@@ -5,7 +5,6 @@ $input = $_GET['numbers'];
 $numbers = explode(',', $input);
 $numbers = array_map('intval', $numbers);
 
-// Define selection sort function
 function selection_sort($arr) {
     $n = count($arr);
     for($i = 0; $i < $n-1; $i++) {
@@ -15,7 +14,7 @@ function selection_sort($arr) {
                 $min_idx = $j;
             }
         }
-        // swap elements at i and min_idx
+
         $temp = $arr[$i];
         $arr[$i] = $arr[$min_idx];
         $arr[$min_idx] = $temp;
@@ -25,6 +24,5 @@ function selection_sort($arr) {
 
 $sorted_numbers = selection_sort($numbers);
 
-header('Content-Type: application/json');
 echo json_encode($sorted_numbers);
 ?>
