@@ -108,57 +108,24 @@ function login_button() {
         axios.get(url).then(response =>{
             console.log(response.data.string_output)
             let string_output = response.data.string_output
-            display.innerHTML =string_output +  '<br>HAHAHHAHA numbers in the string are reversed :p , I was bored when I did this <br> if Charbel saw this I am so happy in the bootcamp'
+            display.innerHTML = string_output
         })
     }
 
     function consonant_switch(){
         let consonant_input = document.getElementById('consonant_input').value
         let display = document.getElementById('consonant-output')
-        let index=0
-        check_first_consonants(consonant_input)
 
-        //cut the strin at the vowel index we found, put it in the end and add ay
-        let changed_consonants = consonant_input.slice(index) + consonant_input.slice(0, index) + "ay" 
-        console.log(changed_consonants)
-        
-        display.innerHTML = changed_consonants + '<br> Yup I am really bored hope I get a good grade for this assignement'
-
-        function check_vowel(char){
-            //check if vowe
-            return ['a', 'e', 'i', 'o', 'u'].includes(char.toLowerCase())
-        }
-        
-        function check_first_consonants(string){
-            for (let i = 0; i<string.length; i++){
-                if(check_vowel(string[i])){
-                    index=i
-                    break
-                }
-            }
-        }
+        let data = new FormData()
+        data.append('consonant_input', consonant_input)
+        let url = 'http://localhost/php-check/php-check-be/consonant.php'
+        axios.post(url, data).then(response => {
+            console.log(response)
+            console.log(response.changed_consonants)
+            display.innerHTML = response.data 
+        })
     }
 
-    function move_image(){
-        let img = document.getElementById("loghouse")
-        let position = 0
-        //set an interval in which the image will move in
-        let id = setInterval(frame, 50)
-        
-        function frame() {
-            //check if it reached the end
-            if (position == 350) {
-                clearInterval(id)
-            } else {
-                position++
-                img.style.left = position + 'px'
-            }
-        }
-    }
-    function show_image() {
-        var img = document.getElementById("loghouse")
-        img.style.display = "inline-block"
-    }
 
     function get_ip_address(){
         let display = document.getElementById('ip_output')
