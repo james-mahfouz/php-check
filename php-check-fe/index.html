@@ -1,0 +1,194 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>PHP playground</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title">
+          <h1>REGISTER TO LEARN</h1>
+        </div>
+
+        <div class="form">
+
+            <div class="inputfield">
+                <label>Email Address</label>
+                <input type="text" class="register_input" id="e_mail">
+            </div>
+
+            <div class="inputfield">
+                <label>Password</label>
+                <input type="password" class="register_input" id="pass_code">
+            </div>   
+
+            <div class="inputfield">
+                <input type="submit" value="Register" class="btn" id="register_btn">
+            </div>
+        </div>
+    </div>
+
+    <div class="playground-wrapper">
+        <h1 id="welcome_header" class="title">WELCOME TO THE PLAYGROUND</h1>
+
+        <section class="sorting-numbers">
+            <form action="">
+                <div class="label">
+                    <label>Enter 10 numbers</label>
+                </div>
+                <div class="inputs">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                    <input type="number" class="number_input">
+                </div>
+                <button type="submit" id="merge_button">ENTER</button>
+
+                <div id="result" class="result"></div>
+            </form>
+            <div class="merge">
+                <p>Merge sort is one of the most efficient sorting algorithms. It is based 
+                on the divide-and-conquer strategy. Merge sort continuously cuts down 
+                a list into multiple sublists until each has only one item, then merges
+                those sublists into a sorted list.</p>
+            </div>
+        </section>
+
+        <section class="checking_if_palindrome">
+            <h1>You now know what is a merge sort, discover what a PALIINDROME is</h1>
+            <p>A Palindrome is a word, phrase, or sequence that reads the same backwards as forwards, 
+                e.g. madam or nurses run.</p>
+            <div class="palindrome-input">
+                <div class="label">
+                    <label for="" >Input a PALINDROME</label>
+                </div>
+                <div>
+                    <input type="text" id="user_palindrome_input" class="input">
+                </div>    
+                <div>
+                    <button type="submit" id="palindrome_button" class="button">Enter</button>
+                </div>    
+            </div>
+            <div id="palindrome-output" class="result"></div>
+        </section>
+
+        <section class="is_prime_age">
+            <h1>I hope you now know what a palindrome is, Now check if your age is 
+                a prime number</h1>
+            <p>A prime number is a whole number greater than 1 that cannot be exactly 
+                divided by any whole number other than itself and 1 (e.g. 2, 3, 5, 7, 11).
+                e.g. madam or nurses run.</p>
+            <div class="prime-input">
+                <div class="label">
+                    <label for="">Write the year you were born in</label>
+                </div>
+                <div>
+                    <input type="number" id="user_prime_input" class="input">
+                </div>    
+                <div>
+                    <button type="submit" id="prime_button" class="button">Enter</button>
+                </div>    
+            </div>
+            <div id="prime-output" class="result"></div>
+        </section>
+        
+        <section class="Course data">
+            <div class="label">
+                <label>Enter your course details</label>
+            </div>
+            <div class="inputs">
+                <input type="number" id="c_code" placeholder="Course Code">
+                <input type="text" id="c_instructor" placeholder="Instructor">
+                <input type="text" id="c_name" placeholder="Course Name">
+                <input type="number" id="c_credits" placeholder="Credit">
+            </div>
+            <button type="submit" id="course_button">ENTER</button>
+            <div id="course_result" class="result"></div>
+        </section>
+
+        <section class="reverse_number">
+            <h1>Enough with those tricks. Wanna see a magic trick?</h1>
+            <p></p>
+            <div class="magic-input">
+                <div class="label">
+                    <label for="">Enter any string you want</label>
+                </div>
+                <div>
+                    <input type="text" id="magic_input" class="input">
+                </div>    
+                <div>
+                    <button type="submit" id="magic_button" class="button">MAGIC</button>
+                </div>    
+            </div>
+            <div id="magic-output" class="result"></div>
+        </section>
+
+        <section class="first_set_of_consonant_to_the_end">
+            <h1>For real this time</h1>
+            <p></p>
+            <div class="consonant-input">
+                <div class="label">
+                    <label for="">Enter any string you want</label>
+                </div>
+                <div>
+                    <input type="text" id="consonant_input" class="input">
+                </div>    
+                <div>
+                    <button type="submit" id="consonant_button" class="button">Enter</button>
+                </div>    
+            </div>
+            <div id="consonant-output" class="result"></div>
+        </section>
+
+        <section id="animation">
+            <h1>This a loghouse I am renting on airbnb BTW, Check it out @ehmejloghouse</h1>
+            <img src="images/Ehmej-Lohouse.jpg" id="loghouse" alt="loghouse">
+        </section>
+
+        <section class="get_IP_address">
+            <h1>I am gonna guess what you IP address is then sum their even number</h1>
+            <p>An Internet Protocol (IP) address is the unique number that gets assigned 
+                to your connected device. Every mobile phone, laptop, cable box, tablet, 
+                server along with thousands of other types of devices (IoT) that are 
+                connected to a computer network has one.</p>
+            <div>
+                <div class="label">
+                    <label for="" >Press to get your IP address</label>
+                </div>   
+                <div>
+                    <button type="submit" id="ip_button" class="button">Press</button>
+                </div>    
+            </div>
+            <div id="ip_output" class="result"></div>
+        </section>
+
+        <section class="your_location">
+            <h1>Look this is your location,</h1>
+            <h3 id="your_location"></h3>
+        </section>
+
+        <section class="to_top">
+            <div>
+                <div class="label">
+                    <label for="" >Press to go back to the top</label>
+                </div>   
+                <div>
+                    <button type="submit" id="to_top_button" class="button">Press</button>
+                </div>    
+            </div>
+        </section>
+    </div>
+    <script src="index.js" type="text/javascript"></script>
+</body>
+</html>
