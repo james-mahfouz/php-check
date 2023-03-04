@@ -7,148 +7,64 @@ function login_button() {
     let password = document.getElementById('pass_code').value
     
         //generate an ID and put the values in a JSON object
-    let ID = generate_id()
-    values = [first_name, last_name, gender, email, password]
-    data[ID] = values
-    JSON.stringify(data)
-    //send you to the playgrounf page
-    window.location.href = "playground.html"
+    let data = new FormData()
+    data.append('email', email)
+    data.append('password', password)
+
+    axios.post('http://localhost/php-check/php-check-be/user-check.php', data).then(function (res) {
+        console.log(res.data)
+
+    }).catch(function (err) {
+        console.log(err);
+    })
 
 }
-    //check if there is an empty value
-    function check_empty_value() {
-        if (first_name.trim() == '' || last_name.trim() == '' || gender.trim() == '' || email.trim() == '' || password.trim() == '' || conf_password.trim() == '') {
-            alert("There is an empty field")
-            return true
-        }
-        else {
-            return false
-        }
-    }
-
-    //generate an ID
-    function generate_id(){
-        last_ID++
-        return last_ID
-    }
-
-    //check if there are letter thann @ than letter then . then letter
-    function check_email(){
-        let email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!email_regex.test(email)) {
-            alert("Invalid email format")
-            console.log("Invalid email")
-            return true
-        }
-        else{
-            return false
-        }
-    }
-
-    //check if the password is equal to the confirmation an if it contain 8 character, a special character and an upper case letter
-    function check_password() {
-        let pass_regex = /^(?=.*[A-Z])(?=.*[!@#$%_^&*])(?=.{8,})/
-        if (!pass_regex.test(password) || password != conf_password) {
-            alert("Password should contain 8 characters minimum, one special character minimum, at least one upper case letter.")
-            return true
-        } 
-        else {
-            return false
-        }
-    }
 
    
    //the buttons of the page 
-    let merge_button = document.getElementById('merge_button')
+    let merge_button = document.getElementById('sort_button')
     let palindrome_button = document.getElementById('palindrome_button')
     let prime_button = document.getElementById('prime_button')
-    let course_button = document.getElementById('course_button')
     let magic_button = document.getElementById('magic_button')
     let consonant_button = document.getElementById('consonant_button')
-    let animation = document.getElementById('animation')
     let ip_button = document.getElementById('ip_button')
     let to_top_button = document.getElementById('to_top_button')
     let your_location = document.getElementById('your_location')
     
     //the event listener
-    merge_button.addEventListener('click', merge_numbers)
+    sort_button.addEventListener('click', sort_numbers)
     palindrome_button.addEventListener('click', check_palindrome)
     prime_button.addEventListener('click', check_prime_age)
     course_button.addEventListener('click', create_course)
     magic_button.addEventListener('click', reverse_numb_string)
     consonant_button.addEventListener('click', consonant_switch)
-    animation.addEventListener('mouseover', move_image)
-    animation.addEventListener('mouseover',show_image)
     ip_button.addEventListener('click', get_ip_address)
     to_top_button.addEventListener('click', scroll_top)
-    addEventListener('scroll', scroll_function)
     get_location()
 
-    //function that when the user scrolled 1500 px will activate just one time
-    function scroll_function() {
-        if (document.body.scrollTop > 1500 || document.documentElement.scrollTop > 1500) {
-            alert("Nice you seem interested")
-            removeEventListener('scroll', scroll_function)
-        }
-    }
-
     //sort the array 
-    function merge_numbers(){
+    function sort_numbers(){
         event.preventDefault()
         let display_result = document.getElementById('result')
         display_result.innerHTML=""
         let numbers_input = document.getElementsByClassName('number_input')
-        let numbers_array =[]
+        let numbers_string
         //storing the input in the array
         for (let i=0; i <numbers_input.length; i++){
-            numbers_array.push(parseInt(numbers_input[i].value))
+            numbers_string += numbers_input[i].value+","
         }
-        console.log(numbers_array)
-        let sorted_array = merge_sort(numbers_array)
+            console.log(numbers_string)
 
-        //displaying the result
-        console.log(sorted_array)
+        let data = new FormData()
+
+        data.append('numbers', numbers_array)
+        axios.get('http://localhost/php-check/php-check-be/sort.php')
         for (var i =0; i<sorted_array.length; i++){
             console.log(sorted_array[i])
             display_result.innerHTML = display_result.innerHTML + sorted_array[i]+"      "
         }
 
-        function merge_sort(array) {
-            if (array.length <= 1) {
-                return array
-            }
-            //split the two array in two half recursively until we reach the value one for each aray
-            let middle = Math.floor(array.length / 2)
-            let left = array.slice(0, middle)
-            let right = array.slice(middle)
         
-            const sorted_left = merge_sort(left)
-            const sorted_right = merge_sort(right)
-            //apply the merge sort
-            return merge(sorted_left, sorted_right)
-        }
-        
-        function merge(left, right) {
-            let result = [];
-            //if the first value at left is smaller it will push to result else it will push the right one
-            while (left.length && right.length) {
-                if (left[0] <= right[0]) {
-                    result.push(left.shift())
-                }
-                else {
-                    result.push(right.shift())
-                }
-            }
-            
-            //loop to push whatever stayed in the array
-            while (left.length) {
-                result.push(left.shift())
-            }
-            while (right.length) {
-                result.push(right.shift())
-            }
-            return result
-        }
     }  
 
     function check_palindrome(){
