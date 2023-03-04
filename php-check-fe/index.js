@@ -43,26 +43,26 @@ function login_button() {
     get_location()
 
     //sort the array 
-    function sort_numbers(){
+    function sort_numbers(event){
         event.preventDefault()
         let display_result = document.getElementById('result')
         display_result.innerHTML=""
         let numbers_input = document.getElementsByClassName('number_input')
-        let numbers_string
+        let numbers_string=""
         //storing the input in the array
         for (let i=0; i <numbers_input.length; i++){
             numbers_string += numbers_input[i].value+","
         }
-            console.log(numbers_string)
+        console.log(numbers_string)
 
-        let data = new FormData()
-
-        data.append('numbers', numbers_array)
-        axios.get('http://localhost/php-check/php-check-be/sort.php')
-        for (var i =0; i<sorted_array.length; i++){
-            console.log(sorted_array[i])
-            display_result.innerHTML = display_result.innerHTML + sorted_array[i]+"      "
-        }
+        let url = 'http://localhost/php-check/php-check-be/sort.php?numbers=' + encodeURIComponent(numbers_string);
+        console.log(url);
+        
+        axios.get(url).then(response => {
+            console.log(response.data)
+            const sorted_numbers = response.data
+            display_result.innerHTML = sorted_numbers
+        }).catch(error => console.error(error))
 
         
     }  
