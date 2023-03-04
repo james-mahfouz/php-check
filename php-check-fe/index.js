@@ -127,32 +127,14 @@ function login_button() {
     }
 
 
-    function get_ip_address(){
-        let display = document.getElementById('ip_output')
-        let sum_IP = 0
-        //get the IP address transform it to an objet than a string
-        fetch('https://api.ipify.org/?format=json').then(response => response.json()).then(data => {const IP_address = data.ip
-            console.log(typeof IP_address, IP_address)
-            for(let i = 0; i<IP_address.length; i++){
-                if(parseInt(IP_address[i])%2==0){
-                    sum_IP += parseInt(IP_address[i])
-                }
-            }
-          display.innerHTML = IP_address + '<br> and for fun here is the sum of the even number of your IP address <br>' +sum_IP 
-        })
-    }
-
-    function get_location(){
-        //if we have the location we get the position
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(show_position);
-        } else {
-            your_location.innerHTML = "So you value your privaacy";
-        }
-    }
-    //get the latitude and longitude and display them in the html
-    function show_position(position) {
-        your_location.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude
+    function get_ip_address() {
+        display = document.getElementById('ip_output')
+        axios.get('http://localhost/php-check/php-check-be/ip.php').then(function(response) {
+            console.log(response.data);
+            display.innerHTML = 'Your IP Address is: ' + response.data
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
       
     //get you to the top
